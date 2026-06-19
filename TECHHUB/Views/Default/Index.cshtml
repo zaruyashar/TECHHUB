@@ -1,0 +1,167 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="page-title">Dashboard</h1>
+<p class="page-subtitle">Below you can find your asset management & helpdesk statistics.</p>
+
+<!-- Stat cards -->
+<div class="row g-3 mb-2">
+    <div class="col-xl-3 col-sm-6">
+        <div class="stat-card">
+            <div>
+                <div class="stat-label">Open tickets</div>
+                <div class="stat-value" id="openTicketsCount">-</div>
+            </div>
+            <div class="stat-icon icon-cyan"><i class="fas fa-headset"></i></div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-sm-6">
+        <div class="stat-card">
+            <div>
+                <div class="stat-label">Critical &amp; high urgency</div>
+                <div class="stat-value" id="urgentCriticalCount">-</div>
+            </div>
+            <div class="stat-icon icon-orange"><i class="fas fa-triangle-exclamation"></i></div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-sm-6">
+        <div class="stat-card">
+            <div>
+                <div class="stat-label">Hardware tracked</div>
+                <div class="stat-value" id="hardwareTrackedCount">-</div>
+            </div>
+            <div class="stat-icon icon-navy"><i class="fas fa-server"></i></div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-sm-6">
+        <div class="stat-card">
+            <div>
+                <div class="stat-label">Expiring &lt; 30 days</div>
+                <div class="stat-value" id="licensesExpiringCount">-</div>
+            </div>
+            <div class="stat-icon icon-amber"><i class="fas fa-key"></i></div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Recent tickets -->
+<div class="card table-card mb-4">
+    <div class="table-toolbar">
+        <span class="fw-medium" style="font-size: 0.9rem;">Tickets List</span>
+        <a href="tickets.html" class="btn btn-outline-primary btn-sm" id="addNewTicket">Add a New Ticket</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Issue</th>
+                    <th>Urgency</th>
+                    <th>Date Reported</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="recentTicketsBody">
+                <tr>
+                    <td class="row-id">#1042</td>
+                    <td>VPN drops every few minutes</td>
+                    <td><span class="status-pill urgency-high"><span class="dot"></span>High</span></td>
+                    <td>Jun 17, 2026</td>
+                    <td>Open</td>
+                    <td></td>
+                    <td class="text-end"><a href="#" class="btn btn-sm btn-outline-primary">Mark as Resolved</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // 1. Load the stats (Your existing code)
+        $.ajax({
+        url: '/Default/GetDashboardStats',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            $('#openTicketsCount').text(data.openTickets);
+            $('#urgentCriticalCount').text(data.urgentCriticalTickets);
+            $('#hardwareTrackedCount').text(data.hardwareTracked);
+            $('#licensesExpiringCount').text(data.licensesExpiring);
+        },
+        error: function (xhr, status, error) {
+            console.error("Error loading stats:", error);
+        }
+    });
+
+    LoadTickets();
+});
+
+    // New function to fetch and render tickets
+    function LoadTickets() {
+        $.ajax({
+        url: '/Default/TicketList',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            var tbody = $('#recentTicketsBody');
+            tbody.empty(); // Clear any existing content just in case
+
+            // Loop through each ticket in the JSON array
+            $.each(data, function (index, item) {
+
+            // Format the date string nicely
+            var dateObj = new Date(item.reportedDate);
+            var formattedDate = dateObj.toLocaleDateString('en-US', {
+            month: 'short', day: 'numeric', year: 'numeric'
+    });
+
+    // Determine the correct CSS class for the urgency pill
+    var urgencyClass = "urgency-low";
+    if (item.urgencyLevel === "High") urgencyClass = "urgency-high";
+    else if (item.urgencyLevel === "Critical") urgencyClass = "urgency-critical";
+    else if (item.urgencyLevel === "Medium") urgencyClass = "urgency-medium";
+
+    // Determine the button state based on the ticket status
+    var buttonHtml = "";
+    if (item.status === "Open") {
+    buttonHtml = `<button class="btn btn-sm btn-outline-primary" onclick="resolveTicket(${item.id})">Mark as Resolved</button>`;
+    } 
+    else {
+    buttonHtml = `<span class="text-muted small">Resolved</span>`;
+    }
+
+    // Construct the HTML row using backticks (Template Literals)
+    var tr = `
+        <tr>
+            <td class="row-id">#${item.id}</td>
+            <td>${item.issueTitle}</td>
+            <td><span class="status-pill ${urgencyClass}"><span class="dot"></span>${item.urgencyLevel}</span></td>
+            <td>${formattedDate}</td>
+            <td>${formattedDate}</td>
+            <td>${item.status}</td>
+            <td class="text-end">${buttonHtml}</td>
+    </tr>`;
+
+        // Inject the row into the table body
+        tbody.append(tr);
+    });
+    },
+   
+    error: function (xhr, status, error) {
+        console.error("Error loading tickets:", error);
+    }
+    });
+    }
+</script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>

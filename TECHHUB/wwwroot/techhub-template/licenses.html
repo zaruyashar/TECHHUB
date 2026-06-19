@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Anchor IT - Software Licenses</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="assets/css/theme.css" rel="stylesheet" />
+</head>
+<body class="app-shell">
+
+    <div id="appHeader"></div>
+    <div id="appSidenav"></div>
+
+    <main class="app-content">
+
+        <div class="d-flex align-items-start justify-content-between flex-wrap gap-2">
+            <div>
+                <h1 class="page-title">Software licenses</h1>
+                <p class="page-subtitle">Seats, keys, and renewal dates across vendors.</p>
+            </div>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#licenseModal">
+                <i class="fas fa-plus me-1"></i> Add license
+            </button>
+        </div>
+
+        <div class="card table-card mb-4">
+            <div class="table-responsive">
+                <table class="table" id="licensesTable">
+                    <thead>
+                        <tr>
+                            <th>Software</th>
+                            <th>License key</th>
+                            <th>Total seats</th>
+                            <th>Renewal date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Adobe Creative Cloud</td>
+                            <td class="row-key">ADBE-7G2K-91XQ-LM4P</td>
+                            <td>25</td>
+                            <td>2026-06-21</td>
+                            <td><span class="status-pill state-expiring"><span class="dot"></span>Expiring soon</span></td>
+                            <td>
+                                <button class="btn btn-icon btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#licenseModal" aria-label="Edit"><i class="fas fa-pen"></i></button>
+                                <button class="btn btn-icon btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteLicenseModal" aria-label="Delete"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Microsoft 365 Business</td>
+                            <td class="row-key">MS365-K3JD-22LQ-99ZP</td>
+                            <td>120</td>
+                            <td>2027-01-15</td>
+                            <td><span class="status-pill state-active"><span class="dot"></span>Active</span></td>
+                            <td>
+                                <button class="btn btn-icon btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#licenseModal" aria-label="Edit"><i class="fas fa-pen"></i></button>
+                                <button class="btn btn-icon btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteLicenseModal" aria-label="Delete"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Slack Business+</td>
+                            <td class="row-key">SLK-44PT-AB12-CD90</td>
+                            <td>60</td>
+                            <td>2026-04-30</td>
+                            <td><span class="status-pill state-expired"><span class="dot"></span>Expired</span></td>
+                            <td>
+                                <button class="btn btn-icon btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#licenseModal" aria-label="Edit"><i class="fas fa-pen"></i></button>
+                                <button class="btn btn-icon btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteLicenseModal" aria-label="Delete"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Jira Software</td>
+                            <td class="row-key">JIRA-9981-XQ33-7710</td>
+                            <td>45</td>
+                            <td>2026-11-02</td>
+                            <td><span class="status-pill state-active"><span class="dot"></span>Active</span></td>
+                            <td>
+                                <button class="btn btn-icon btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#licenseModal" aria-label="Edit"><i class="fas fa-pen"></i></button>
+                                <button class="btn btn-icon btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteLicenseModal" aria-label="Delete"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="appFooter"></div>
+
+    <!-- Add / edit license modal -->
+    <div class="modal fade" id="licenseModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form>
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add license</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Software name</label>
+                            <input type="text" class="form-control" name="SoftwareName" placeholder="e.g. Adobe Creative Cloud" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">License key</label>
+                            <input type="text" class="form-control text-mono" name="LicenseKey" required />
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 mb-3">
+                                <label class="form-label">Total seats</label>
+                                <input type="number" min="1" class="form-control" name="TotalSeats" required />
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                                <label class="form-label">Renewal date</label>
+                                <input type="date" class="form-control" name="RenewalDate" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save license</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteLicenseModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Remove license</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">This removes the license record permanently. This can't be undone.</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"></script>
+
+    <script>window.ANCHOR_PAGE = "licenses";</script>
+    <script src="assets/js/layout.js"></script>
+
+    <script>
+        $(function () {
+            new simpleDatatables.DataTable("#licensesTable", { searchable: true, perPage: 10 });
+        });
+    </script>
+
+</body>
+</html>

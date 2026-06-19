@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<button class="btn btn-sm btn-primary m-2" id="btnAddEmployee">Add Hardware Inventory</button>
+
+<table class="table table-bordered">
+    <thead>
+        <tr class="text-center">
+            <th>Id</th>
+            <th>Device Type</th>
+            <th>Serial Number</th>
+            <th>Purchase Date</th>
+            <th>Warranty Expiration</th>
+        </tr>
+    </thead>
+    <tbody class="text-center" id="table_data"></tbody>
+</table>
+
+<div class="modal fade" id="HardwareInventoryModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="text-info modal-title" id="hardwareInventoryHeading">Add Hardware Inventory</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    <div class="form-group" id="hardwareId">
+                        <label>Id</label>
+                        <input type="text" class="form-control" id="HardwareId" disabled="disabled" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Device Type</label>
+                        <input type="text" placeholder="Enter the type of the device" class="form-control" id="DeviceType" autocomplete="off" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Serial Number</label>
+                        <input type="text" placeholder="Enter the serial number" class="form-control" id="SerialNumber" autocomplete="off" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Purchase Date</label>
+                        <input type="text" placeholder="Enter the date the device was purchased" class="form-control" id="PurchaseDate" autocomplete="off" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Warranty Expiration</label>
+                        <input type="text" placeholder="Enter the date the warranty expires" class="form-control" id="Warranty Expiration" autocomplete="off" />
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary" OnClick="AddHardwareInventory();" id="AddHardwareInventory">Save</button>
+
+                <button class="btn btn-warning" OnClick="UpdateHardwareInventory();" style="display:none" id="btnUpdate">Update</button>
+
+                <button class="btn btn-danger btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <input type="hidden" id="urlHardwareInventoryData" value="@Url.Action("HardwareInventoryList", "HardwareInventory")" />
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/custom.js"></script>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Anchor IT - Create account</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/theme.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="auth-shell">
+
+        <aside class="auth-aside d-none d-md-flex">
+            <div>
+                <a href="index.html" class="app-brand">
+                    <span class="brand-mark"><i class="fas fa-anchor"></i></span>
+                    <span>Anchor IT</span>
+                </a>
+                <h2>Set up your helpdesk in minutes.</h2>
+                <p>Invite your IT team, import your existing hardware and license records, and start logging tickets the same day.</p>
+
+                <div class="auth-stat-row">
+                    <div>
+                        <div class="figure">3</div>
+                        <div class="caption">Core record types</div>
+                    </div>
+                    <div>
+                        <div class="figure">&lt; 5 min</div>
+                        <div class="caption">Average setup time</div>
+                    </div>
+                </div>
+            </div>
+            <div class="auth-foot">&copy; 2026 Anchor IT &middot; Internal use only</div>
+        </aside>
+
+        <div class="auth-main">
+            <div class="auth-card">
+                <div class="auth-eyebrow">Get started</div>
+                <h1>Create your account</h1>
+                <p class="auth-subtext">For employees and IT staff at your organization.</p>
+
+                <form id="signupForm" method="post">
+                    <div class="row">
+                        <div class="col-sm-6 mb-3">
+                            <label class="form-label">First name</label>
+                            <input type="text" class="form-control" name="FirstName" required />
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <label class="form-label">Last name</label>
+                            <input type="text" class="form-control" name="LastName" required />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Work email</label>
+                        <input type="email" class="form-control" name="Email" placeholder="you@company.com" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" name="Password" placeholder="At least 8 characters" required />
+                        <div class="form-text">Use 8+ characters with a mix of letters and numbers.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">I am a</label>
+                        <select class="form-select" name="Role" required>
+                            <option value="">Choose...</option>
+                            <option>Employee</option>
+                            <option>IT administrator</option>
+                        </select>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="agreeTerms" required />
+                        <label class="form-check-label" for="agreeTerms" style="font-size: 0.85rem; color: var(--slate-500);">
+                            I agree to the internal usage policy
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Create account</button>
+                </form>
+
+                <div class="auth-divider">or continue with</div>
+
+                <div class="row g-2">
+                    <div class="col-6">
+                        <button type="button" class="btn-social"><i class="fab fa-microsoft"></i> Microsoft</button>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" class="btn-social"><i class="fab fa-google"></i> Google</button>
+                    </div>
+                </div>
+
+                <div class="auth-foot-link">
+                    Already have an account? <a href="login.html">Sign in</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
